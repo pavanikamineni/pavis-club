@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Reservation | Pavi's Club Restaurant</title>
+  <meta name="description" content="Reserve an elegant dining table at Pavi's Club. Perfect for family celebrations, romantic candle-lit dinners, and private clubhouse gatherings.">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="mainNavbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" id="brandLogo">
+        <div class="brand-crest">P</div>
+        <div class="brand-text-block">
+          <span class="brand-title">PAVI'S CLUB</span>
+          <span class="brand-sub">Restaurant & Lounge</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="menu.html" class="nav-link">Menu</a></li>
+          <li><a href="reservation.html" class="nav-link active">Reservations</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-trigger-btn cart-open-trigger" id="cartOpenBtn" aria-label="View Shopping Cart">
+          <span>🛒</span>
+          <span class="cart-count-badge" id="cartCountBadge" style="display:none;">0</span>
+        </button>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Menu -->
+  <aside class="mobile-nav-menu" id="mobileNavMenu">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-crest">P</div>
+        <span class="brand-title">PAVI'S CLUB</span>
+      </a>
+      <button class="cart-close-btn" id="mobileNavClose">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="menu.html">🍽️ Food Menu</a></li>
+      <li><a href="reservation.html" class="active">🥂 Table Reservation</a></li>
+      <li><a href="about.html">✨ About Pavi's Club</a></li>
+      <li><a href="contact.html">📞 Contact & Location</a></li>
+      <li><a href="admin.html">🔐 Staff Portal</a></li>
+    </ul>
+  </aside>
+
+  <!-- Banner -->
+  <section class="section" style="padding:8rem 0 3.5rem; background:radial-gradient(ellipse at top, rgba(212, 175, 55, 0.1) 0%, transparent 70%); text-align:center;">
+    <div class="container">
+      <span class="section-eyebrow">Hospitality & Ambience</span>
+      <h1 class="section-heading" style="font-size:3rem;">Book Your Table</h1>
+      <div class="gold-divider"><span class="gold-divider-icon">✦</span></div>
+      <p class="section-description">
+        Experience grand dining in our gold-illuminated dining room, rooftop terrace, or private celebration lounges.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Reservation Content -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" style="max-width:960px;">
+      
+      <!-- Dining Spaces Cards -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem; margin-bottom:3.5rem;">
+        <div class="seating-choice-card active" data-area="Main Dining Hall" style="background:var(--bg-card); border:1px solid var(--gold-border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80" alt="Main Dining Hall" style="height:150px; width:100%; object-fit:cover;">
+          <div style="padding:1.25rem;">
+            <strong style="color:var(--text-cream-bright); font-size:1.1rem; display:block; margin-bottom:0.25rem;">Main Dining Salon</strong>
+            <p style="font-size:0.82rem; color:var(--text-cream-dim);">Plush seating, warm gold chandeliers, ideal for families and intimate conversations.</p>
+          </div>
+        </div>
+
+        <div class="seating-choice-card" data-area="Rooftop Terrace" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=80" alt="Rooftop Terrace" style="height:150px; width:100%; object-fit:cover;">
+          <div style="padding:1.25rem;">
+            <strong style="color:var(--text-cream-bright); font-size:1.1rem; display:block; margin-bottom:0.25rem;">Rooftop Terrace</strong>
+            <p style="font-size:0.82rem; color:var(--text-cream-dim);">Open breeze, city night sky view, romantic candle-lit dining ambiance.</p>
+          </div>
+        </div>
+
+        <div class="seating-choice-card" data-area="Royal VIP Lounge" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=500&q=80" alt="Royal VIP Lounge" style="height:150px; width:100%; object-fit:cover;">
+          <div style="padding:1.25rem;">
+            <strong style="color:var(--text-cream-bright); font-size:1.1rem; display:block; margin-bottom:0.25rem;">VIP Private Dining</strong>
+            <p style="font-size:0.82rem; color:var(--text-cream-dim);">Exclusive secluded suite for business milestones and celebration feasts.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Form Card -->
+      <div style="background:var(--bg-card); border:1px solid var(--gold-border); border-radius:var(--radius-xl); padding:3rem 2.5rem; box-shadow:var(--shadow-lg);">
+        <div style="text-align:center; margin-bottom:2.5rem;">
+          <h3 style="font-size:1.8rem; color:var(--gold-light);">Table Reservation Form</h3>
+          <p style="font-size:0.9rem; color:var(--text-cream-dim);">Please provide your booking details. Tables are held for 15 minutes past the reserved hour.</p>
+        </div>
+
+        <form id="tableBookingForm">
+          <input type="hidden" name="seating_area" id="resvSeatingArea" value="Main Dining Hall">
+          <input type="hidden" name="guest_count" id="resvGuests" value="2">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" name="customer_name" class="form-control" placeholder="e.g. Vikram Malhotra" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" name="customer_phone" class="form-control" placeholder="e.g. +91 98765 43210" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address (Optional)</label>
+              <input type="email" name="customer_email" class="form-control" placeholder="e.g. vikram@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reservation Date *</label>
+              <input type="date" name="reservation_date" id="resvDate" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Seating Time *</label>
+              <select name="reservation_time" class="form-control" required>
+                <optgroup label="Lunch Service">
+                  <option value="12:00">12:00 PM</option>
+                  <option value="12:45">12:45 PM</option>
+                  <option value="13:30">01:30 PM</option>
+                  <option value="14:15">02:15 PM</option>
+                </optgroup>
+                <optgroup label="Dinner Service">
+                  <option value="19:00">07:00 PM</option>
+                  <option value="19:45" selected>07:45 PM</option>
+                  <option value="20:30">08:30 PM</option>
+                  <option value="21:15">09:15 PM</option>
+                  <option value="22:00">10:00 PM</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Party Size (Number of Guests)</label>
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <button type="button" class="btn btn-outline btn-sm guest-counter-btn active" data-guests="2">2 Guests</button>
+                <button type="button" class="btn btn-outline btn-sm guest-counter-btn" data-guests="4">4 Guests</button>
+                <button type="button" class="btn btn-outline btn-sm guest-counter-btn" data-guests="6">6 Guests</button>
+                <button type="button" class="btn btn-outline btn-sm guest-counter-btn" data-guests="8">8 Guests</button>
+                <button type="button" class="btn btn-outline btn-sm guest-counter-btn" data-guests="12">12+ Guests</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Special Occasion or Dining Preferences</label>
+            <textarea name="special_requests" rows="3" class="form-control" placeholder="E.g. Anniversary dinner, high chair needed, dietary restrictions, quiet corner table..."></textarea>
+          </div>
+
+          <div style="background:rgba(212, 175, 55, 0.08); border-radius:var(--radius-sm); padding:0.85rem; margin-bottom:1.75rem; font-size:0.82rem; color:var(--gold-light);">
+            ℹ️ <strong>Backend Notice:</strong> When submitted, this reservation request is saved directly into the backend database. In live service, automatic SMS/email confirmations dispatch to the patron.
+          </div>
+
+          <div style="text-align:center;">
+            <button type="submit" class="btn btn-primary" style="min-width:280px;">
+              Request Table Reservation 🥂
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Confirmation Modal -->
+  <div class="modal-overlay" id="bookingConfirmModal">
+    <div class="modal-dialog">
+      <div class="modal-body" id="bookingConfirmBody"></div>
+    </div>
+  </div>
+
+  <!-- Cart Slide-out Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart">
+    <div class="cart-header">
+      <div class="cart-title-row">
+        <span>🛍️</span>
+        <h4 class="cart-title">Your Order Cart</h4>
+      </div>
+      <button class="cart-close-btn" id="cartCloseBtn">✕</button>
+    </div>
+    <div class="cart-body" id="cartItemsList"></div>
+    <div class="cart-footer">
+      <div class="cart-summary-row"><span>Total Payable:</span><strong id="cartTotal">₹0</strong></div>
+      <div class="cart-actions">
+        <button class="btn btn-primary" id="cartCheckoutBtn">Proceed to Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Luxury Footer -->
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom:1rem;">
+            <div class="brand-crest">P</div>
+            <div class="brand-text-block">
+              <span class="brand-title">PAVI'S CLUB</span>
+              <span class="brand-sub">Restaurant & Lounge</span>
+            </div>
+          </a>
+          <p class="footer-brand-desc">
+            "Good Food. Great Taste. Unforgettable Moments." An extraordinary celebration of authentic spices, premium dining ambiance, and timeless culinary heritage.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Food Menu</a></li>
+            <li><a href="reservation.html">Table Reservation</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Hours</h4>
+          <p style="font-size:0.88rem; color:var(--text-cream-dim); margin-bottom:0.5rem;">Lunch: 11:30 AM - 03:30 PM</p>
+          <p style="font-size:0.88rem; color:var(--text-cream-dim);">Dinner: 06:30 PM - 11:30 PM</p>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Direct Inquiries</h4>
+          <p style="font-size:0.88rem; color:var(--text-cream-dim);">Phone: +91 98765 43210</p>
+          <p style="font-size:0.88rem; color:var(--text-cream-dim);">Email: hello@pavisclub.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Pavi's Club Restaurant. All Rights Reserved.</div>
+        <div>Demo Table Booking Interface • Real Backend Integration</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/reservation.js"></script>
+</body>
+</html>

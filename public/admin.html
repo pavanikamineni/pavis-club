@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff & Admin Concierge | Pavi's Club</title>
+  <meta name="description" content="Pavi's Club Restaurant Management Portal. Live order tracking, menu CRUD management, table reservation approvals, and customer inquiries.">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- 1. Admin Login View (Shown when not authenticated) -->
+  <section class="admin-login-wrapper" id="adminLoginSection">
+    <div class="admin-login-card">
+      <div class="admin-login-brand">
+        <div class="brand-crest" style="margin:0 auto 1rem; width:56px; height:56px; font-size:1.6rem;">P</div>
+        <h2 style="font-family:var(--font-brand); color:var(--gold-light); font-size:1.6rem; letter-spacing:0.1em;">
+          PAVI'S CLUB
+        </h2>
+        <span style="font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-cream-dim);">
+          Staff & Concierge Portal
+        </span>
+      </div>
+
+      <div id="loginErrorMsg" style="display:none; background:rgba(231, 76, 60, 0.15); border:1px solid #e74c3c; color:#ff6b6b; padding:0.75rem; border-radius:var(--radius-md); font-size:0.85rem; margin-bottom:1.25rem;"></div>
+
+      <form id="adminLoginForm">
+        <div class="form-group" style="text-align:left;">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" value="admin" required autocomplete="username">
+        </div>
+
+        <div class="form-group" style="text-align:left;">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" value="admin123" required autocomplete="current-password">
+        </div>
+
+        <div style="background:rgba(212, 175, 55, 0.08); border-radius:var(--radius-sm); padding:0.75rem; margin-bottom:1.5rem; font-size:0.8rem; color:var(--gold-light); text-align:left;">
+          🔑 <strong>Default Demo Credentials:</strong><br>
+          Username: <code>admin</code><br>
+          Password: <code>admin123</code>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">
+          Enter Staff Portal 🔐
+        </button>
+      </form>
+
+      <div style="margin-top:1.5rem;">
+        <a href="index.html" style="font-size:0.85rem; color:var(--text-cream-dim);">← Return to Customer Website</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Admin Dashboard View (Shown when authenticated) -->
+  <section class="admin-dashboard-wrapper" id="adminDashboardSection" style="display:none;">
+    
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="admin-brand-group">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-crest" style="width:36px; height:36px; font-size:1.1rem;">P</div>
+          <span class="brand-title" style="font-size:1.2rem;">PAVI'S CLUB</span>
+        </a>
+        <span class="admin-badge-role">Staff Concierge</span>
+      </div>
+
+      <div class="admin-user-group">
+        <div id="adminDbStatusPill" class="db-status-pill">
+          Connecting to DB...
+        </div>
+        <a href="index.html" class="btn btn-outline btn-sm" target="_blank">
+          View Website ↗
+        </a>
+        <button id="adminLogoutBtn" class="btn btn-glass btn-sm" style="color:#ff6b6b; border-color:rgba(231,76,60,0.3);">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="admin-main">
+      
+      <!-- KPI Stats Grid -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-card-icon">💰</div>
+          <div>
+            <div class="stat-card-label">Total Revenue</div>
+            <div class="stat-card-value" id="statTotalRevenue">₹0.00</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-card-icon">📦</div>
+          <div>
+            <div class="stat-card-label">Orders Count</div>
+            <div class="stat-card-value" id="statTotalOrders">0</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-card-icon">⏳</div>
+          <div>
+            <div class="stat-card-label">Pending Orders</div>
+            <div class="stat-card-value" id="statPendingOrders" style="color:#f39c12;">0</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-card-icon">🍲</div>
+          <div>
+            <div class="stat-card-label">Active Dishes</div>
+            <div class="stat-card-value" id="statTotalDishes">0</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-card-icon">🥂</div>
+          <div>
+            <div class="stat-card-label">Reservations</div>
+            <div class="stat-card-value" id="statReservations">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="tabMenu">
+          🍲 Menu Management
+        </button>
+        <button class="admin-tab-btn" data-tab="tabOrders">
+          📦 Orders Tracker
+        </button>
+        <button class="admin-tab-btn" data-tab="tabReservations">
+          🥂 Table Reservations
+        </button>
+        <button class="admin-tab-btn" data-tab="tabMessages">
+          ✉️ Customer Inquiries
+        </button>
+      </div>
+
+      <!-- Tab 1: Menu Management -->
+      <div class="admin-tab-content active" id="tabMenu">
+        <div class="admin-panel-header">
+          <div>
+            <h3 class="admin-panel-title">Menu Management</h3>
+            <p style="font-size:0.85rem; color:var(--text-cream-dim);">Add, edit, or toggle availability of dishes in real-time.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" id="openAddDishBtn">
+            + Add New Dish
+          </button>
+        </div>
+
+        <div class="admin-table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Dish / Category</th>
+                <th>Dietary</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Featured</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminMenuTableBody">
+              <!-- Rendered via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Orders Tracker -->
+      <div class="admin-tab-content" id="tabOrders">
+        <div class="admin-panel-header">
+          <div>
+            <h3 class="admin-panel-title">Live Orders Tracker</h3>
+            <p style="font-size:0.85rem; color:var(--text-cream-dim);">Update order lifecycle status from preparation to delivery.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadOrders()">
+            🔄 Refresh Orders
+          </button>
+        </div>
+
+        <div class="admin-table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order Number</th>
+                <th>Customer</th>
+                <th>Ordered Items & Address</th>
+                <th>Amount & Mode</th>
+                <th>Update Status</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTableBody">
+              <!-- Rendered via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Reservations -->
+      <div class="admin-tab-content" id="tabReservations">
+        <div class="admin-panel-header">
+          <div>
+            <h3 class="admin-panel-title">Table Booking Requests</h3>
+            <p style="font-size:0.85rem; color:var(--text-cream-dim);">Review seating requests and confirm tables for guests.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadReservations()">
+            🔄 Refresh Reservations
+          </button>
+        </div>
+
+        <div class="admin-table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Date & Time</th>
+                <th>Guests</th>
+                <th>Area / Requests</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminResvTableBody">
+              <!-- Rendered via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 4: Messages -->
+      <div class="admin-tab-content" id="tabMessages">
+        <div class="admin-panel-header">
+          <div>
+            <h3 class="admin-panel-title">Customer Inquiries</h3>
+            <p style="font-size:0.85rem; color:var(--text-cream-dim);">Messages submitted via the contact form.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadMessages()">
+            🔄 Refresh Messages
+          </button>
+        </div>
+
+        <div id="adminMessagesList">
+          <!-- Rendered via admin.js -->
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- Add / Edit Dish Modal -->
+  <div class="modal-overlay" id="dishModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="dishModalTitle">Add New Culinary Dish</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('dishModal').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="dishForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Dish Name *</label>
+              <input type="text" name="name" class="form-control" placeholder="e.g. Shahi Mutton Rogan Josh" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select name="category_id" id="dishCategorySelect" class="form-control" required>
+                <!-- Populated via admin.js -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Price (₹) *</label>
+              <input type="number" step="0.01" name="price" class="form-control" placeholder="e.g. 450.00" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Image URL</label>
+              <input type="url" name="image_url" class="form-control" placeholder="https://images.unsplash.com/...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea name="description" rows="3" class="form-control" placeholder="Describe the flavors, ingredients, and slow cooking process..."></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin-bottom:1.5rem; background:var(--bg-secondary); padding:1rem; border-radius:var(--radius-md);">
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.9rem;">
+              <input type="checkbox" name="is_veg">
+              <span>🌱 Pure Vegetarian</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.9rem;">
+              <input type="checkbox" name="is_spicy">
+              <span>🌶️ Spicy Dish</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.9rem;">
+              <input type="checkbox" name="is_featured">
+              <span>★ Signature Dish</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.9rem;">
+              <input type="checkbox" name="is_available" checked>
+              <span>✅ In Stock / Available</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">
+            Save Dish to Menu
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/cart.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
