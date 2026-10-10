@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 👑 Pavi's Club - Premium Restaurant Full-Stack Web Application
 
 > **"Good Food. Great Taste. Unforgettable Moments."**
@@ -175,3 +176,6 @@ The server will start at:
 2. **Parameterized Queries**: All database operations use prepared statements to prevent SQL Injection.
 3. **Secret Isolation**: Secrets, credentials, and ports are loaded from environment variables and excluded via `.gitignore`.
 4. **Graceful Error Handling**: Unified error-handling middleware preventing server crashes.
+=======
+# pavis-club
+>>>>>>> c0c8d313ef744c5bad8f0f12a619d8896d16849c
